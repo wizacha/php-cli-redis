@@ -1,3 +1,9 @@
 FROM php:7.1-cli
-RUN pecl install redis \
+
+RUN apt-get update \
+    && apt-get install -y libicu-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install intl \
+    && pecl install redis \
     && docker-php-ext-enable redis
